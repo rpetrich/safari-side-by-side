@@ -32,6 +32,8 @@ if [ ! -e "$HOME/Desktop/Safari 5.1.7.app" ]; then
 			-change /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/WebCore @executable_path/../Frameworks/WebCore.framework/Versions/A/WebCore \
 			"Applications/Safari.app/Contents/$binary"
 	done
+	plutil -replace CFBundleIdentifier -string "com.apple.Safari-5.1" -- Applications/Safari.app/Contents/Info.plist
+	plutil -replace CFBundleName -string "Safari 5.1" -- Applications/Safari.app/Contents/Info.plist
 	mv Applications/Safari.app ~/Desktop/Safari\ 5.1.7.app
 	popd
 fi
@@ -58,10 +60,14 @@ if [ ! \( -e "$HOME/Desktop/Safari 6.0.5.app" \) ]; then
 			-change {/System/Library/Private,@executable_path/../}Frameworks/SyndicationUI.framework/Versions/A/SyndicationUI \
 			-change {/System/Library/,@executable_path/../}Frameworks/JavaScriptCore.framework/Versions/A/JavaScriptCore \
 			-change {/System/Library/,@executable_path/../}Frameworks/WebKit.framework/Versions/A/WebKit \
+			-change {/System/Library/Private,@executable_path/../}Frameworks/WebInspector.framework/Versions/A/WebInspector \
 			-change {/System/Library/Private,@executable_path/../}Frameworks/WebKit2.framework/Versions/A/WebKit2 \
 			-change /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/WebCore @executable_path/../Frameworks/WebCore.framework/Versions/A/WebCore \
 			"Applications/Safari.app/Contents/$binary"
 	done
+	# TODO: Change string hard coded in the Safari.framework/.../Safari binary from /System/Library/PrivateFrameworks/WebInspector.framework/Versions/A/WebInspector to the resolved path
+	plutil -replace CFBundleIdentifier -string "com.apple.Safari-6.0" -- Applications/Safari.app/Contents/Info.plist
+	plutil -replace CFBundleName -string "Safari 6.0" -- Applications/Safari.app/Contents/Info.plist
 	mv Applications/Safari.app ~/Desktop/Safari\ 6.0.5.app
 	popd
 fi
